@@ -1,4 +1,4 @@
-const Mentor = require('../models/mentor'); // Adjust the path if needed
+const Mentor = require('../models/mentor'); // Adjust path if necessary
 
 exports.getMentors = async (req, res) => {
   try {
@@ -44,7 +44,7 @@ exports.getMentors = async (req, res) => {
     mentors = mentors || [];
 
     // Render the mentor list page with the mentors and isPremium flag
-    res.render('mentor/mentorList', { domain, mentors, isPremium });
+    res.render('mentor/mentorList', { domain, mentors, isPremium, isLoggedIn: req.isAuthenticated() });
 
   } catch (error) {
     console.error('Error fetching mentors:', error);
@@ -52,9 +52,6 @@ exports.getMentors = async (req, res) => {
     res.redirect('/home');
   }
 };
-
-
-
 
 exports.getMentorDetails = async (req, res) => {
   try {
@@ -66,13 +63,23 @@ exports.getMentorDetails = async (req, res) => {
       return res.redirect('/home');
     }
 
-    res.render('mentor/mentorDetails', { mentor,
-            userId: "someUserId",
-            startTime: "2024-08-14T10:00:00Z", 
-            endTime: "2024-08-14T11:00:00Z", 
-            additionalCharge: 500
+    // Check if user is logged in
+    if (!req.isAuthenticated()) {
+      req.flash('errorMsg', 'You need to log in to book a session.');
+      return res.redirect('/login');
+    }
 
-     });
+    // Fetch session details if needed or set defaults
+    const { startTime = "2024-08-14T10:00:00Z", endTime = "2024-08-14T11:00:00Z", additionalCharge = 500 } = req.query;
+
+    res.render('mentor/mentorDetails', { 
+      mentor,
+      userId: req.user._id, // Assuming user ID is available from req.user
+      startTime,
+      endTime,
+      additionalCharge
+    });
+
   } catch (error) {
     console.error('Error fetching mentor details:', error);
     req.flash('errorMsg', 'An error occurred while fetching mentor details.');

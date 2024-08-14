@@ -3,51 +3,53 @@
 <div class="container mt-4">
   <h1>Mentors in <%= domain %></h1>
 
-  <% if (mentors.length > 0) { %>
-    <ul>
-        <% mentors.forEach(mentor => { %>
-            <li>
-                <h2><%= mentor.name %></h2>
-                <p><%= mentor.bio %></p>
-                <p>Expertise: <%= mentor.expertise.join(', ') %></p>
-                
-                <% if (isPremium) { %>
-                  <!-- Show "More..." button for Premium Users -->
-                  <form action="/mentors/<%= mentor._id %>/details" method="GET">
-                      <button type="submit">More...</button>
-                  </form>
-                <% } else { %>
-                  <!-- Show Availability Slots for Non-Premium Users -->
-                  <p>Availability:</p>
-                  <ul>
-                      <% mentor.availability.forEach(slot => { %>
-                          <li>
-                              Start Time: <%= slot.start_time %> - End Time: <%= slot.end_time %>
-                              <% if (!slot.is_booked) { %>
-                                  <span style="color: green;">(Available)</span>
-                              <% } else { %>
-                                  <span style="color: red;">(Booked)</span>
-                              <% } %>
-                          </li>
-                      <% }); %>
-                  </ul>
-
-                  <!-- Booking and Time Selection Options for Non-Premium Users -->
-                  
-                 
-
-                  <form action="/mentors/<%= mentor._id %>/details" method="GET">
-                    <button type="submit">More...</button>
-                </form>
-                <% } %>
-            </li>
-        <% }); %>
-    </ul>
+  <% if (!isLoggedIn) { %>
+    <!-- Redirect to login page if not logged in -->
+    <p>You need to <a href="/login">login</a> first to view the mentor details.</p>
   <% } else { %>
-    <p>No mentors found for this domain.</p>
+    <% if (mentors.length > 0) { %>
+      <ul>
+          <% mentors.forEach(mentor => { %>
+              <li>
+                  <h2><%= mentor.name %></h2>
+                  <p><%= mentor.bio %></p>
+                  <p>Expertise: <%= mentor.expertise.join(', ') %></p>
+                  
+                  <% if (isPremium) { %>
+                    <!-- Show "More..." button for Premium Users -->
+                    <form action="/mentors/<%= mentor._id %>/details" method="GET">
+                        <button type="submit">More...</button>
+                    </form>
+                  <% } else { %>
+                    <!-- Show Availability Slots for Non-Premium Users -->
+                    <p>Availability:</p>
+                    <ul>
+                        <% mentor.availability.forEach(slot => { %>
+                            <li>
+                                Start Time: <%= slot.start_time %> - End Time: <%= slot.end_time %>
+                                <% if (!slot.is_booked) { %>
+                                    <span style="color: green;">(Available)</span>
+                                <% } else { %>
+                                    <span style="color: red;">(Booked)</span>
+                                <% } %>
+                            </li>
+                        <% }); %>
+                    </ul>
+                    
+                    <!-- Booking and Time Selection Options for Non-Premium Users -->
+                    <form action="/mentors/<%= mentor._id %>/details" method="GET">
+                      <button type="submit">More...</button>
+                    </form>
+                  <% } %>
+              </li>
+          <% }); %>
+      </ul>
+    <% } else { %>
+      <p>No mentors found for this domain.</p>
+    <% } %>
   <% } %>
-
 </div>
+
 
 <script>
     document.getElementById('duration').addEventListener('change', function() {

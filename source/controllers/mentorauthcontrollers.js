@@ -28,7 +28,7 @@ module.exports.signup=async(req,res)=>{
   }
     catch(error){
         req.flash("errorMsg",error.message);
-        res.redirect("/signup");
+        res.redirect("/authmentor/signup");
     }       
   }
 

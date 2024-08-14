@@ -93,6 +93,7 @@ passport.deserializeUser(function(obj, done) {
 app.use((req, res, next) => {
   res.locals.successMsg = req.flash('successMsg');
   res.locals.errorMsg = req.flash('errorMsg');
+  res.locals.isLoggedIn = req.isAuthenticated();
   res.locals.currentStudent = req.user && req.user instanceof Student ? req.user : null;
   res.locals.currentMentor = req.user && req.user instanceof Mentor ? req.user : null;
   next();
