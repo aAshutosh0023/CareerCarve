@@ -1,27 +1,22 @@
+// models/mentor.js
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const passportLocalMongoose = require("passport-local-mongoose");
 
 // Define the Mentor Schema
 const mentorSchema = new Schema({
-  mentor_id: {
-    type: Schema.Types.ObjectId,
-    auto: true,  // Auto-generate a unique ObjectId for each mentor
-    required: true,
-    unique: true
-  },
-  name: {
+  username: {
     type: String,
     required: true,
+    unique: true,
     trim: true
+  },
+  password: {
+    type: String,
   },
   expertise: {
     type: [String], // Array of strings to list areas of expertise
     required: true
-  },
-  bio: {
-    type: String,
-    required: true,
-    trim: true
   },
   availability: [{
     start_time: {
@@ -39,7 +34,14 @@ const mentorSchema = new Schema({
   }]
 });
 
-// Create a model using the schema
-const Mentor = mongoose.model('Mentor', mentorSchema);
+mentorSchema.plugin(passportLocalMongoose, {
+  usernameField: 'username',
+  passwordValidator: function(password, cb) {
+    if (password.trim() === "") {
+      return cb(new Error("please fill valid password!"));
+    }
+    return cb(null, true);
+  }
+});
 
-module.exports = Mentor;
+module.exports = mongoose.model("Mentor", mentorSchema);

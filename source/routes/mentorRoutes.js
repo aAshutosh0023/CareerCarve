@@ -10,7 +10,8 @@ router.get('/search', (req, res, next) => {
     next();
   }, mentorController.getMentors);
 
- 
+
+  router.get('/:id/details', mentorController.getMentorDetails);
 
 
 module.exports = router;

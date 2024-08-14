@@ -1,0 +1,86 @@
+<% layout('/layouts/boilerplate') -%>
+
+<div class="container mt-4">
+  <h1>Mentor Details</h1>
+  <h2><%= mentor.name %></h2>
+  <p><%= mentor.bio %></p>
+  <p>Expertise: <%= mentor.expertise.join(', ') %></p>
+  <h3>Availability:</h3>
+  <ul>
+    <% mentor.availability.forEach(slot => { %>
+      <li>
+        Start Time: <%= slot.start_time %> - End Time: <%= slot.end_time %>
+        <% if (!slot.is_booked) { %>
+          <span style="color: green;">(Available)</span>
+        <% } else { %>
+          <span style="color: red;">(Booked)</span>
+        <% } %>
+      </li>
+    <% }); %>
+  </ul>
+</div>
+
+<form>
+  <label for="date">Date:</label>
+  <input type="date" id="date" required>
+  <br>
+  <br>
+
+  <label for="startTime">Start Time:</label> <br>
+  <input type="time" id="startTime" required>
+
+  <label for="endTime">End Time:</label>
+  <input type="time" id="endTime" readonly>
+
+  <label for="duration">Select Duration:</label>
+  <select name="duration" id="duration">
+      <option value="30">30 min</option>
+      <option value="45">45 min</option>
+      <option value="60">60 min</option>
+  </select>
+
+  <button type="button" id="bookSessionBtn">Book Session</button>
+</form>
+
+<script>
+  document.getElementById('duration').addEventListener('change', function() {
+      const startTime = document.getElementById('startTime').value;
+      if (startTime) {
+          updateEndTime();
+      }
+  });
+
+  document.getElementById('startTime').addEventListener('change', updateEndTime);
+
+  function updateEndTime() {
+      const startTime = document.getElementById('startTime').value;
+      const duration = document.getElementById('duration').value;
+
+      if (startTime && duration) {
+          const [hours, minutes] = startTime.split(':').map(Number);
+          const endDate = new Date();
+          endDate.setHours(hours);
+          endDate.setMinutes(minutes + Number(duration));
+
+          const endHours = String(endDate.getHours()).padStart(2, '0');
+          const endMinutes = String(endDate.getMinutes()).padStart(2, '0');
+
+          document.getElementById('endTime').value = `${endHours}:${endMinutes}`;
+      }
+  }
+
+  document.getElementById('bookSessionBtn').addEventListener('click', function() {
+      const mentorId = "<%= mentor._id %>";
+      const date = document.getElementById('date').value;
+      const startTime = document.getElementById('startTime').value;
+      const endTime = document.getElementById('endTime').value;
+
+      // Store in cookies
+      document.cookie = `mentorId=${mentorId}; path=/`;
+      document.cookie = `startTime=${date}T${startTime}; path=/`;
+      document.cookie = `endTime=${date}T${endTime}; path=/`;
+
+      // Redirect to the payment page
+      window.location.href = '/payment';
+  });
+</script>

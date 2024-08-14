@@ -1,0 +1,32 @@
+<% layout('/layouts/boilerplate') -%>
+
+<div class="container mt-4">
+    <h1>Your Sessions</h1>
+
+    <% if (sessions.length === 0) { %>
+        <p>No sessions booked yet.</p>
+    <% } else { %>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                    <th>Additional Charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% sessions.forEach(session => { %>
+                    <tr>
+                        <td><%= session.student_id %></td>
+                        <td><%= new Date(session.start_time).toLocaleString() %></td>
+                        <td><%= new Date(session.end_time).toLocaleString() %></td>
+                        <td><%= session.status %></td>
+                        <td><%= session.additional_charge %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } %>
+</div>

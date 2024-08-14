@@ -3,12 +3,7 @@ const Schema = mongoose.Schema;
 
 // Define the Session Schema
 const sessionSchema = new Schema({
-  session_id: {
-    type: Schema.Types.ObjectId,
-    auto: true,  // Auto-generate a unique ObjectId for each session
-    required: true,
-    unique: true
-  },
+
   student_id: {
     type: Schema.Types.ObjectId,
     required: true,
