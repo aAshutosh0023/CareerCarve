@@ -1,0 +1,70 @@
+<style>
+ 
+  
+    
+    .collapsed-bg {
+          background-color: #ddd !important; /* Grey background color */
+          padding-left: 1rem;
+      }
+  
+      @media (max-width: 576px) {
+  
+       
+  
+        .navbar-toggler {
+              padding: 0.15rem 0.25rem; 
+          }
+          .navbar-toggler-icon {
+              font-size: 0.8rem !important;
+              padding: 0.2rem !important;
+          }
+          .navbar-collapse {
+              margin-top: 1.4rem; 
+              border-top: none;
+             
+          }
+  
+          
+     }
+
+    
+  
+      
+  </style>
+
+<nav class="navbar navbar-light navbar-expand-sm  border-bottom sticky-top" style="background-color: #ebebeb;">
+    <div class="container-fluid">
+     
+      <div class="head-icons">
+        
+        
+       <a href="/home"><h1 style="margin-left: 2rem;">Eventam</h1></a> 
+      
+          
+      </div>
+ 
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+       
+        <span class="navbar-toggler-icon"></span>
+      </button>
+     
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">        
+        </div>    
+        </div>
+
+       
+      </div>
+    </div>
+  </nav>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+   $(document).ready(function () {
+        $('.navbar-toggler').click(function () {
+            $('.navbar-collapse').toggleClass('collapsed-bg');
+        });
+    });
+
+</script>
+

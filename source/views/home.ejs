@@ -1,0 +1,87 @@
+<% layout('/layouts/boilerplate') -%>
+
+<div class="container mt-4">
+  <h1>Welcome to our portal</h1>
+  
+  <p>
+    This platform is a specialized portal designed to connect students with experienced mentors across a diverse range of MBA domains. It provides an intuitive interface where students can explore and book one-on-one sessions with mentors who possess expertise in areas such as Finance, Marketing, Human Resources, and many more. By selecting a specific domain, students can search for mentors who align with their academic and professional interests, facilitating targeted learning and career development. The platform focuses on simplifying the scheduling process, allowing students to easily find and book available time slots with their chosen mentors. This personalized mentoring experience is aimed at helping students gain valuable insights, guidance, and support as they navigate their MBA journey and prepare for successful careers.
+  </p>
+  
+  <!-- Search Form for MBA Domains -->
+  <div class="mt-4">
+    <form action="/mentors/search" method="GET" class="form-inline">
+      <div class="form-group">
+        <label for="domain" class="mr-2">Select MBA Domain:</label>
+        <select name="domain" id="domain" class="form-control mr-2">
+          <option value="" disabled selected>Select a domain</option>
+          <option value="Finance">Finance</option>
+          <option value="Marketing">Marketing</option>
+          <option value="Human Resources">Human Resources</option>
+          <option value="Operations Management">Operations Management</option>
+          <option value="Supply Chain Management">Supply Chain Management</option>
+          <option value="Information Technology">Information Technology</option>
+          <option value="Entrepreneurship">Entrepreneurship</option>
+          <option value="International Business">International Business</option>
+          <option value="Business Analytics">Business Analytics</option>
+          <option value="Consulting">Consulting</option>
+          <option value="Healthcare Management">Healthcare Management</option>
+          <option value="Project Management">Project Management</option>
+          <option value="Retail Management">Retail Management</option>
+          <option value="Sales">Sales</option>
+          <option value="Digital Marketing">Digital Marketing</option>
+          <option value="Hospitality Management">Hospitality Management</option>
+          <option value="Agribusiness Management">Agribusiness Management</option>
+          <option value="Luxury Brand Management">Luxury Brand Management</option>
+          <option value="Media Management">Media Management</option>
+          <option value="Public Relations">Public Relations</option>
+          <option value="Real Estate Management">Real Estate Management</option>
+          <option value="Energy and Environment">Energy and Environment</option>
+          <option value="Transport and Logistics">Transport and Logistics</option>
+          <option value="Tourism and Travel Management">Tourism and Travel Management</option>
+          <option value="Nonprofit Management">Nonprofit Management</option>
+          <option value="Public Policy Management">Public Policy Management</option>
+          <option value="Education Management">Education Management</option>
+          <option value="Sports Management">Sports Management</option>
+          <option value="E-commerce">E-commerce</option>
+          <option value="Event Management">Event Management</option>
+          <option value="Financial Management">Financial Management</option>
+          <option value="Leadership and Strategy">Leadership and Strategy</option>
+          <option value="Insurance Management">Insurance Management</option>
+          <option value="Banking">Banking</option>
+          <option value="Actuarial Science">Actuarial Science</option>
+          <option value="Corporate Social Responsibility">Corporate Social Responsibility</option>
+          <option value="Innovation Management">Innovation Management</option>
+          <option value="Sustainability Management">Sustainability Management</option>
+          <option value="Telecom Management">Telecom Management</option>
+          <option value="Design Management">Design Management</option>
+          <option value="Business Communication">Business Communication</option>
+          <option value="Risk Management">Risk Management</option>
+        </select>
+        <br>
+      </div>
+      
+      <!-- Hidden input to send premium status -->
+      <input type="hidden" name="premium" id="premiumStatus">
+      
+      <button type="submit" class="btn btn-success">Search</button>
+    </form>
+  </div>
+  
+  <div class="mt-4">
+    <div class="form-check form-switch">
+      <input class="form-check-input big-switch" type="checkbox" id="planSwitch">
+      <label class="form-check-label" for="planSwitch"><h4>Switch to premium</h4></label>
+    </div>
+  </div>
+  
+  
+  
+</div>
+
+<script>
+  // Update the hidden input field based on the switch status
+  document.getElementById('planSwitch').addEventListener('change', function() {
+    const premiumStatusInput = document.getElementById('premiumStatus');
+    premiumStatusInput.value = this.checked ? 'on' : '';
+  });
+</script>
