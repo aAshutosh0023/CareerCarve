@@ -42,7 +42,7 @@ const studentController = require("../controllers/studentControllers.js")
                     return next(err);
                 }
                 res.cookie('studentId', student._id.toString(), { httpOnly: true });
-                req.flash("successMsg", "Welcome to CoLab"); // Flash success message
+                req.flash("successMsg", "Welcome to CareerCarve"); // Flash success message
                 
                 return res.redirect("/home");
             });

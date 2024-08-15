@@ -26,7 +26,7 @@ router.route("/login")
           return next(err);
         }
         res.cookie('mentorId', mentor._id.toString(), { httpOnly: true });
-        req.flash("successMsg", "Welcome to CoLab"); // Flash success message
+        req.flash("successMsg", "Welcome to CareerCarve"); // Flash success message
         return res.redirect("/sessions");
       });
     })(req, res, next);

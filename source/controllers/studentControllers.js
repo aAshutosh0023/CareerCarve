@@ -4,7 +4,7 @@ const Student = require("../models/student.js");
 module.exports.signupForm=(req,res)=>{ res.render("students/signup.ejs");
 }
 module.exports.logIn = async(req,res)=>{
-  req.flash("successMsg","Welcome back to wanderlust");
+  req.flash("successMsg","Welcome back to CareerCarve");
    if(res.locals.redirectUrl){ //agar redirect path khali nhi aaya toh ..
     return res.redirect(res.locals.redirectUrl);
    }

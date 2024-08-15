@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const express = require('express');
 const mongoose = require('mongoose');
 const session = require('express-session');
@@ -17,8 +18,8 @@ const mentorauthRouter = require("./routes/mentorauthRouter.js");
 const sessionRoutes = require("./routes/sessionsRouter.js")
 
 const app = express();
-const dbUrl = 'mongodb://127.0.0.1:27017/one2one';
-
+//const dbUrl = 'mongodb://127.0.0.1:27017/one2one';
+const dbUrl = process.env.ATLASDB_URL ;
 // Setup view engine
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
