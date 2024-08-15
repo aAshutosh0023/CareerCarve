@@ -100,6 +100,9 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get('/', (req, res) => {
+  res.redirect('/home');
+});
 
 // MongoDB connection
 mongoose.connect(dbUrl, {
